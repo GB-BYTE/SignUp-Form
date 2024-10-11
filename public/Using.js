@@ -1,6 +1,9 @@
 "use strict";
 const form = document.getElementById('userForm');
 const successMessage = document.getElementById('successMessage');
+const activityMessage = document.querySelector('.useractivity');
+const h2Element = activityMessage.querySelector('h2');
+const inputtracking = document.querySelector('.inputtracking');
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     let Firstname = document.getElementById('firstname').value;
@@ -9,14 +12,14 @@ form.addEventListener("submit", (e) => {
     let Phonenumber = document.getElementById('phoneno').value;
     let password = document.getElementById('password').value;
     let date = new Date();
-    let formatteddate = (`${date.toLocaleDateString()}, ${date.toLocaleTimeString()}`);
+    let formattedDate = `${date.toLocaleDateString()}, ${date.toLocaleTimeString()}`;
     const newuser = {
         "Firstname": Firstname,
         "Lastname": Lastname,
         "Email": Email,
         "Phonenumber": Phonenumber,
         "password": password,
-        "Signuptime": formatteddate
+        "Signuptime": formattedDate
     };
     fetch('http://localhost:3000/userdata', {
         method: 'POST',
@@ -33,7 +36,16 @@ form.addEventListener("submit", (e) => {
         console.log("Registration Successful", data);
         successMessage.textContent = "You have successfully signed up!";
         successMessage.style.display = 'block';
-        //simulated a token for each user
+        h2Element.style.display = 'block';
+        // Display the user input activity summary stated in feature (3)
+        inputtracking.innerHTML = `
+          <p>You typed the following:</p>
+          <p>First Name: ${Firstname}</p>
+          <p>Last Name: ${Lastname}</p>
+          <p>Email: ${Email}</p>
+          <p>Phone Number: ${Phonenumber}</p>
+      `;
+        // Simulate token generation for the user stated in feature (2)
         const token = btoa(`${data.Email}:${Date.now()}`);
         localStorage.setItem('usertoken', token);
         form.reset();
@@ -42,28 +54,3 @@ form.addEventListener("submit", (e) => {
         console.error('Error:', error);
     });
 });
-// var submit = document.getElementById('Submit')as HTMLFormElement;
-//  submit.addEventListener('click', function(event) {
-//   event.preventDefault(); // Prevents the default form submission
-//   const firstname = (document.getElementById('firstname') as HTMLInputElement).value;
-//   const lastname = (document.getElementById('lastname') as HTMLInputElement).value;
-//   const email = (document.getElementById('email') as HTMLInputElement).value;
-//   const phoneno = (document.getElementById('phoneno') as HTMLInputElement).value;
-//   const password = (document.getElementById('password') as HTMLInputElement).value;
-//   // Create an object with the form data
-//   const UserData = {
-//       firstname,
-//       lastname,
-//       email,
-//       phoneno,
-//       password
-//   };
-//   fetch('http://localhost:3000/userdata', {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify(UserData)
-// })
-// .then(response => response.json())
-// .then(data => console.log('Success:', data))
-// .catch(error => console.error('Error:', error));
-// });
