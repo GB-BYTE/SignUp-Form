@@ -2,7 +2,7 @@ interface UserInput {
     Firstname: string;
     Lastname: string;
     Email: string;
-    Phonenumber: string; // Change this to string
+    Phonenumber: string; 
     password: any;
     Signuptime:string
 }
@@ -56,7 +56,6 @@ form.addEventListener("submit", (e) => {
         console.error('Error:', error);
     });
 });
-
 
 
 

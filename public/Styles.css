@@ -67,4 +67,28 @@ cursor: pointer;
 .submit-btn{
     padding-bottom: 20px;
 }
+.signedup-container{
+    background-color: purple;
+    width:100%;
+    height: 100vh;
+    padding:20px
+
+}
+.signedup-container h2{
+    color:#dcd8d8;
+    margin-top: 30px;
+}
+.signedup-container p{
+    color:#fff;
+    margin-top: 10px;
+    font-size: 18px;
+    padding-left:20px
+}
+.signedupusers{
+    color:#fff;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 16px;  
+}
+
 
