@@ -1,8 +1,6 @@
 "use strict";
 const form = document.getElementById('userForm');
 const successMessage = document.getElementById('successMessage');
-const activityMessage = document.querySelector('.useractivity');
-const h2Element = activityMessage.querySelector('h2');
 const inputtracking = document.querySelector('.inputtracking');
 form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -21,6 +19,7 @@ form.addEventListener("submit", (e) => {
         "password": password,
         "Signuptime": formattedDate
     };
+    localStorage.setItem('userdetails', JSON.stringify(newuser));
     fetch('http://localhost:3000/userdata', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -34,20 +33,7 @@ form.addEventListener("submit", (e) => {
     })
         .then(data => {
         console.log("Registration Successful", data);
-        successMessage.textContent = "You have successfully signed up!";
         successMessage.style.display = 'block';
-        h2Element.style.display = 'block';
-        // Display the user input activity summary stated in feature (3)
-        inputtracking.innerHTML = `
-          <p>You typed the following:</p>
-          <p>First Name: ${Firstname}</p>
-          <p>Last Name: ${Lastname}</p>
-          <p>Email: ${Email}</p>
-          <p>Phone Number: ${Phonenumber}</p>
-      `;
-        // Simulate token generation for the user stated in feature (2)
-        const token = btoa(`${data.Email}:${Date.now()}`);
-        localStorage.setItem('usertoken', token);
         form.reset();
     })
         .catch((error) => {
